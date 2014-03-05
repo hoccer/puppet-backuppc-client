@@ -51,5 +51,14 @@ class backuppc-client::install {
     require => File["/home/backuppc/.ssh/authorized_keys"],
     }
 
+  file { "/etc/sudoers.d/backuppc":
+    owner   => root,
+    group   => root,
+    mode    => 440,
+    content => "backuppc ALL=(ALL) NOPASSWD:/usr/bin/rsync
+",
+    require => User["backuppc"],
+  }
+
 }
 
